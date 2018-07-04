@@ -44,6 +44,7 @@ public class AuthService {
     public String genToken(AuthInfoDTO authInfoDTO) {
         String id = authInfoDTO.getLoginType() + UUID.randomUUID().toString();
         stringRedisTemplate.opsForHash().put(USER_SESSION_PREFIX + authInfoDTO.getUserId(), id, "" + System.currentTimeMillis());
+        stringRedisTemplate.expire(USER_SESSION_PREFIX + authInfoDTO.getUserId(), 10, TimeUnit.SECONDS);
         try {
             return JWTHelper.generateToken(new JWTInfo(id, "" + authInfoDTO.getUserId()), priKeyPath);
         } catch (Exception e) {
