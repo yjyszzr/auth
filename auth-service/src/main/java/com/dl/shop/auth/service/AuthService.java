@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
 import java.util.UUID;
+import java.util.concurrent.TimeUnit;
 
 /**
  * 鉴权服务
@@ -42,6 +43,11 @@ public class AuthService {
      */
     public String genToken(AuthInfoDTO authInfoDTO) {
         String id = authInfoDTO.getLoginType() + UUID.randomUUID().toString();
+       
+//		stringRedisTemplate.opsForValue().set(USER_SESSION_PREFIX + authInfoDTO.getUserId(), id, 60, TimeUnit.SECONDS);
+
+//      stringRedisTemplate.opsForHash().set(USER_SESSION_PREFIX + authInfoDTO.getUserId(), id, "" + 60);
+       
         stringRedisTemplate.opsForHash().put(USER_SESSION_PREFIX + authInfoDTO.getUserId(), id, "" + 60);
         try {
             return JWTHelper.generateToken(new JWTInfo(id, "" + authInfoDTO.getUserId()), priKeyPath);
