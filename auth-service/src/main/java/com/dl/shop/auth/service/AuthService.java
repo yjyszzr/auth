@@ -66,7 +66,7 @@ public class AuthService {
             switch (invalidateTokenDTO.getInvalidateType()) {
                 case 2: {
                     stringRedisTemplate.delete(USER_SESSION_PREFIX + invalidateTokenDTO.getUserId());
-                }
+                } break;
                 default: {
                     IJWTInfo info = JWTHelper.getInfoFromToken(invalidateTokenDTO.getToken(), pubKeyPath);
                     stringRedisTemplate.opsForHash().delete(USER_SESSION_PREFIX + info.getUserId(), info.getUnique());
