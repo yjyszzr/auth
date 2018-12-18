@@ -34,6 +34,6 @@ public interface IAuthService {
     @PostMapping("/auth/invalidate")
     BaseResult<Integer> invalidate(@RequestBody InvalidateTokenDTO invalidateTokenDTO);
 
-    @PostMapping("/getUserIdByToken")
+    @PostMapping("/auth/getUserIdByToken")
     public BaseResult<Integer> getUserIdByToken(@RequestBody InvalidateTokenDTO invalidateTokenDTO);
 }
