@@ -78,5 +78,21 @@ public class AuthService {
 
     }
 
+    /**
+     * 根据用户token解析userId
+     *
+     * @param invalidateTokenDTO 请求信息
+     */
+    public Integer getUserIdByToken(InvalidateTokenDTO invalidateTokenDTO) {
+        Integer userId = null;
+        try {
+            log.info("-----token:"+invalidateTokenDTO.getToken());
+            IJWTInfo info = JWTHelper.getInfoFromToken(invalidateTokenDTO.getToken(), pubKeyPath);
+            userId = Integer.valueOf(info.getUserId());
+        } catch (Exception e) {
+            log.error("token 失效失败，请求信息为：" + invalidateTokenDTO, e);
+        }
+        return userId;
+    }
 
 }

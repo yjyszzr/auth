@@ -42,4 +42,11 @@ public class AuthController {
         authService.invalidate(invalidateTokenDTO);
         return ResultGenerator.genSuccessResult("");
     }
+
+    @PostMapping("/getUserIdByToken")
+    @ApiOperation("获取userId")
+    public BaseResult<Integer> getUserIdByToken(@RequestBody InvalidateTokenDTO invalidateTokenDTO) {
+        Integer userId = authService.getUserIdByToken(invalidateTokenDTO);
+        return ResultGenerator.genSuccessResult("success",userId);
+    }
 }

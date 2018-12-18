@@ -1,5 +1,6 @@
 package com.dl.shop.auth.api;
 
+import io.swagger.annotations.ApiOperation;
 import org.springframework.cloud.netflix.feign.FeignClient;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -32,4 +33,7 @@ public interface IAuthService {
      */
     @PostMapping("/auth/invalidate")
     BaseResult<Integer> invalidate(@RequestBody InvalidateTokenDTO invalidateTokenDTO);
+
+    @PostMapping("/getUserIdByToken")
+    public BaseResult<Integer> getUserIdByToken(@RequestBody InvalidateTokenDTO invalidateTokenDTO);
 }
